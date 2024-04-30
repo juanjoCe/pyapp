@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the workflow will run
@@ -9,16 +7,13 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
+    # Self hosted runner on GCP
     runs-on: self-hosted
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
@@ -30,14 +25,20 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
-      # Testing VM''s'
-      - name: Create GCP Compute Engine Instance
-        run: |
-          gcloud compute instances create my-instance \
-            --machine-type=e2-micro \
-            --zone=us-central1-a \
-            --image-family=debian-10 \
-            --image-project=debian-cloud \
-            --tags=http-server,https-server
+      # Install GCP SDK test
+      - name: Set up gcloud Cloud SDK environment
+        uses: google-github-actions/setup-gcloud@v2.1.0
+      - name: Display Info about the cloud environment
+        run: gcloud info      
+
+          # Testing VMs works! Remember to use | for multiple lines
+      # - name: Create GCP Compute Engine Instance
+      #   run: |
+      #     gcloud compute instances create my-instance \
+      #       --machine-type=e2-micro \
+      #       --zone=us-central1-a \
+      #       --image-family=debian-10 \
+      #       --image-project=debian-cloud \
+      #       --tags=http-server,https-server
 
       
