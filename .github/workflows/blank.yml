@@ -30,13 +30,14 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
-      # Print Service Account info
-      - name: Print Service Account info
+      # Testing VM''s'
+      - name: Create GCP Compute Engine Instance
         run: |
-          gcloud iam service-accounts keys list \
-          --iam-account=github-actions@gcp-lab-421817.iam.gserviceaccount.com
-      # - name: Run a multi-line script
-      #   run: gcloud iam service-accounts keys list \
-      #   --iam-account=github-actions@gcp-lab-421817.iam.gserviceaccount.com
+          gcloud compute instances create my-instance \
+            --machine-type=e2-micro \
+            --zone=us-central1-a \
+            --image-family=debian-10 \
+            --image-project=debian-cloud \
+            --tags=http-server,https-server
 
       
