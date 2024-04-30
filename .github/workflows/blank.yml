@@ -25,17 +25,14 @@ jobs:
       # Working Directory
       - name: Run a one-line script
         run: pwd
-      # Test Bash
-      - name: Run a one-line script
-        run: echo "Bash test" > pipeline.txt
       # Test Create VM
-      - name: Run a one-line script
-        run: gcloud compute instances create instance-1 --machine-type=n1-standard-1 --zone=us-central1-b --preemptible --no-restart-on-failure --maintenance-policy=terminate
-
-      # Runs a set of commands using the runners shell
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: "${{ secrets.GITHUB_TOKENGOOGLE_APPLICATION_CREDENTIALS }}"
+      # Print Service Account info
       - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+        run: gcloud iam service-accounts keys list \
+        --iam-account=github-actions@gcp-lab-421817.iam.gserviceaccount.com
 
       
