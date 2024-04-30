@@ -29,7 +29,7 @@ jobs:
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: "${{ secrets.GITHUB_TOKENGOOGLE_APPLICATION_CREDENTIALS }}"
+          credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
       # Print Service Account info
       - name: Print Service Account info
         run: |
