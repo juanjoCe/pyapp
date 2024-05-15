@@ -13,6 +13,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Check if Docker is installed
+        run: |
+          if ! command -v docker &> /dev/null
+          then
+            echo "Docker is not installed, installing..."
+            sudo apt update
+            sudo apt install -y docker.io
+            sudo systemctl start docker
+            sudo systemctl enable docker
+          else
+            echo "Docker is already installed."
+          fi
       - uses: actions/checkout@v4
       # Runs a single command using the runners shell
       - name: Run a one-line script
