@@ -30,8 +30,8 @@ jobs:
       - name: Build and Push Docker Image to GCR
         uses: docker/build-push-action@v2
         with:
-          context: juanjoCe/pyapp   # Adjust the context path here
-          file: juanjoCe/pyapp/Dockerfile  # Path to Dockerfile
+          context: .   # Use the current directory as the context
+          file: Dockerfile  # Path to Dockerfile
           push: true
           tags: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions/python-webapp:${{ github.run_number }}
         
