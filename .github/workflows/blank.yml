@@ -22,9 +22,12 @@ jobs:
             sudo apt install -y docker.io
             sudo systemctl start docker
             sudo systemctl enable docker
+            # Add Docker to PATH
+            export PATH="/usr/bin:$PATH"
           else
             echo "Docker is already installed."
           fi
+    
       - uses: actions/checkout@v4
       # Runs a single command using the runners shell
       - name: Run a one-line script
