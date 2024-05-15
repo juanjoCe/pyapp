@@ -29,27 +29,53 @@ jobs:
       - name: Set up gcloud Cloud SDK environment
         uses: google-github-actions/setup-gcloud@v2.1.0
       - name: Display Info about the cloud environment
-        run: gcloud info      
-      # GitHub Actions for build and push 
-      - name: Google Artifact Registry Build & Push
-        # You may pin to the exact commit or the version.
-        # uses: piotr-krusinski/action-google-artifact-registry@9cf02c218758b424473a7ede8bc90272037a8530
-        uses: piotr-krusinski/action-google-artifact-registry@v1.0
+        run: gcloud info    
+               
+      - name: Docker Login to GCR
+        uses: docker/login-action@v2
         with:
-          # Google project ID of your project where Artifact Registry is created
-          google_project_id: gcp-lab-421817
-          # Google Artifact Registry region
-          google_artifact_registry_region: us-central1
-          # Google Artifact Registry hostname
-          google_artifact_registry_hostname: us-central1-docker.pkg.dev
-          # Google Artifact Registry repository name
-          google_artifact_registry_name: github-actions
-          # Base64 version of Google Cloud Platform service key to access Artifact Registry
-          service_account_key: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
-          # Path to dockerfile
-          dockerfile: juanjoCe/pyapp/Dockerfile
-          # Name of created image
-          image_name: python-webapp
+          username: _json_key
+          password: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
+          registry: us-central1-docker.pkg.dev
+
+      - name: Build and Push Docker Image to GCR
+        uses: docker/build-push-action@v2
+        with:
+          context: .  # Path to the Docker context (e.g., Dockerfile directory)
+          file: juanjoCe/pyapp/Dockerfile  # Path to Dockerfile
+          push: true
+          tags: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions/python-webapp:${{ github.run_number }}
+
+
+
+
+
+
+
+
+
+
+
+      # GitHub Actions for build and push 
+      # - name: Google Artifact Registry Build & Push
+      #   # You may pin to the exact commit or the version.
+      #   # uses: piotr-krusinski/action-google-artifact-registry@9cf02c218758b424473a7ede8bc90272037a8530
+      #   uses: piotr-krusinski/action-google-artifact-registry@v1.0
+      #   with:
+      #     # Google project ID of your project where Artifact Registry is created
+      #     google_project_id: gcp-lab-421817
+      #     # Google Artifact Registry region
+      #     google_artifact_registry_region: us-central1
+      #     # Google Artifact Registry hostname
+      #     google_artifact_registry_hostname: us-central1-docker.pkg.dev
+      #     # Google Artifact Registry repository name
+      #     google_artifact_registry_name: github-actions
+      #     # Base64 version of Google Cloud Platform service key to access Artifact Registry
+      #     service_account_key: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
+      #     # Path to dockerfile
+      #     dockerfile: juanjoCe/pyapp/Dockerfile
+      #     # Name of created image
+      #     image_name: python-webapp
           # Tag list separated by space, if no tag is specified then it will use latest tag (example: tag_1 tag_2 tag_3)
           #tag_list: # optional
           # List of build args that will be used to build docker image
