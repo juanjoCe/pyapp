@@ -27,7 +27,7 @@ jobs:
         with:
           username: _json_key
           password: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
-          registry: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions
+          # registry: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions
 
       - name: Build and Push Docker Image to GCR
         uses: docker/build-push-action@v2
