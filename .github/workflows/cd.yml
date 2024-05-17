@@ -23,6 +23,13 @@ jobs:
       - name: Display Info about the cloud environment
         run: gcloud info
 
+      - name: Get Kubernetes credentials
+        run: |
+          gcloud config set project gcp-lab-421817
+          gcloud config set compute/zone us-central1-c
+          gcloud components install kubectl
+          gcloud container clusters get-credentials cluster-1
+          
       # Deploy the application to GKE
       - name: Deploy to GKE
         run: |
