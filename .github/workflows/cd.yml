@@ -37,3 +37,4 @@ jobs:
           gcloud config set compute/zone us-central1-c
           gcloud container clusters get-credentials cluster-1
           kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml
