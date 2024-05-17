@@ -12,6 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v2
         with:
@@ -19,6 +20,7 @@ jobs:
       # Install GCP SDK test
       - name: Set up gcloud Cloud SDK environment
         uses: google-github-actions/setup-gcloud@v2.1.0
+      
       - name: Display Info about the cloud environment
         run: gcloud info    
                
@@ -36,7 +38,12 @@ jobs:
           file: Dockerfile  # Path to Dockerfile
           push: true
           tags: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions/python-webapp:${{ github.run_number }}
-        
+          
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v3.0.0
+        with:
+          token: # optional, default is ${{ github.token }}
+          event-type: trigger-cd
 
 
 
