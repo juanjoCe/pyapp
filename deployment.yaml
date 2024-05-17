@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: python-webapp
-        image: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions/python-webapp:latest
+        image: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions/python-webapp:10
         ports:
         - containerPort: 8080
 ---
