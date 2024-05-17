@@ -36,4 +36,4 @@ jobs:
           gcloud config set project gcp-lab
           gcloud config set compute/zone us-central1-c
           gcloud container clusters get-credentials cluster-1
-          kubectl apply -f pyapp/deployment.yaml
+          kubectl apply -f deployment.yaml
