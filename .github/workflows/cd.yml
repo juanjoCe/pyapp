@@ -29,11 +29,11 @@ jobs:
           gcloud config set compute/zone us-central1-c
           gcloud components install kubectl
           gcloud container clusters get-credentials cluster-1
-          
+
       # Deploy the application to GKE
       - name: Deploy to GKE
         run: |
           gcloud config set project gcp-lab
           gcloud config set compute/zone us-central1-c
           gcloud container clusters get-credentials cluster-1
-          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f pyapp/deployment.yaml
