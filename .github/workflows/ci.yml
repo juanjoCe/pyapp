@@ -1,13 +1,13 @@
-name: CI
+name: Continuous Integration Pipeline
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - main  # or specify the branches you want to trigger the workflow
+
 jobs:
   build:
-    # Self hosted runner on GCP
     runs-on: self-hosted
 
     steps:
@@ -17,13 +17,13 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}"
-      # Install GCP SDK test
+
       - name: Set up gcloud Cloud SDK environment
         uses: google-github-actions/setup-gcloud@v2.1.0
-      
+
       - name: Display Info about the cloud environment
-        run: gcloud info    
-               
+        run: gcloud info
+
       - name: Docker Login to GCR
         uses: docker/login-action@v2
         with:
@@ -34,17 +34,16 @@ jobs:
       - name: Build and Push Docker Image to GCR
         uses: docker/build-push-action@v2
         with:
-          context: .   # Use the current directory as the context
-          file: Dockerfile  # Path to Dockerfile
+          context: .
+          file: Dockerfile
           push: true
           tags: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions/python-webapp:${{ github.run_number }}
 
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3.0.0
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.PAT }}  
           event-type: trigger-cd
-
 
 
 
