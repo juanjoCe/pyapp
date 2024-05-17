@@ -39,11 +39,11 @@ jobs:
           push: true
           tags: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions/python-webapp:${{ github.run_number }}
 
-      # - name: Repository Dispatch
-      #   uses: peter-evans/repository-dispatch@v3.0.0
-      #   with:
-      #     token: ${{ secrets.PAToken }}  
-      #     event-type: trigger-cd
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v3.0.0
+        with:
+          token: ${{ secrets.PAToken }}  
+          event-type: trigger-cd
 
 
 
