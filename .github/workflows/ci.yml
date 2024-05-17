@@ -42,7 +42,7 @@ jobs:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3.0.0
         with:
-          token: ${{ secrets.P_A_T }}
+          token: ${{ secrets.PAT }}
           event-type: trigger-cd
 
 
