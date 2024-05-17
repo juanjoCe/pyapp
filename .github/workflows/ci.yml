@@ -38,11 +38,11 @@ jobs:
           file: Dockerfile  # Path to Dockerfile
           push: true
           tags: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions/python-webapp:${{ github.run_number }}
-          
+
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3.0.0
         with:
-          token: # optional, default is ${{ github.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           event-type: trigger-cd
 
 
