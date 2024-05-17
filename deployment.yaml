@@ -17,16 +17,3 @@ spec:
         image: us-central1-docker.pkg.dev/gcp-lab-421817/github-actions/python-webapp:10
         ports:
         - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: python-webapp-service
-spec:
-  selector:
-    app: python-webapp
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: LoadBalancer
